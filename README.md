@@ -26,3 +26,5 @@ node todo.js new
     complete: used to mark a todo as complete
     help:     used to print the usage guide
 ```
+
+![screenshot](todo-node.png)

@@ -12,7 +12,7 @@ db.defaults({
   todos: []
 }).write()
 
-const commands = ['new', 'get', 'complete', 'help', 'delete']
+const commands = ['new', 'get', 'complete', 'delete', 'help']
 
 const usage = function () {
   const usageText = `
@@ -26,6 +26,7 @@ const usage = function () {
     new:      used to create a new todo
     get:      used to retrieve your todos
     complete: used to mark a todo as complete
+    delete:   used to delete a todo
     help:     used to print the usage guide
   `
 
@@ -37,7 +38,9 @@ function errorLog(error) {
   console.log(eLog)
 }
 
-if (args.length > 3 && args[2] != 'complete') {
+const exeptConds = ['complete', 'delete']
+
+if (args.length > 3 && !exeptConds.includes(args[2])) {
   errorLog('only one argument can be accepted')
   usage()
   return
@@ -62,6 +65,7 @@ switch (args[2]) {
     completeTodo()
     break
   case 'delete':
+    deleteTodo()
     break
   default:
     errorLog('invalid command passed')
@@ -133,5 +137,30 @@ function completeTodo() {
   db.set(`todos[${n-1}].complete`, true).write()
 }
 
-// TODO: Add delete todo function
-// function deleteTodo() { ... }
+function deleteTodo() {
+  if (args.length != 4) {
+    errorLog("invalid number of arguments passed for complete command")
+    return
+  }
+
+  let n = Number(args[3])
+  // check if the value is a number
+  if (isNaN(n)) {
+    errorLog("please provide a valid number for complete command")
+    return
+  }
+
+  let todosLength = db.get('todos').value().length
+  if (n > todosLength || n < 0) {
+    errorLog("invalid number passed for complete command.")
+    return
+  }
+
+  // get title of that task
+  // its a bit stupid coz at the begining i didnt add indexes
+  // and idk how to get indexes in lowdb
+  let todo = db.get(`todos[${n-1}].title`).value()
+  // delete the todo item
+  db.get('todos').remove({ title: `${todo}` }).write()
+  console.log(chalk.red(`Task #${n} was deleted`))
+}
