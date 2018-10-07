@@ -17,14 +17,15 @@ node todo.js new
 ```
 
 ```zsh
-  todo <command>
+todo <command>
 
-    commands can be:
+  commands can be:
 
-    new:      used to create a new todo
-    get:      used to retrieve your todos
-    complete: used to mark a todo as complete
-    help:     used to print the usage guide
+  new:          used to create a new todo
+  get:          used to retrieve your todos
+  complete <i>: used to mark a todo as complete by index
+  delete <i>:   used to delete a todo by index
+  help:         used to print the usage guide
 ```
 
 ![screenshot](todo-node.png)
