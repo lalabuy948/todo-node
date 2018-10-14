@@ -1,14 +1,24 @@
 {
   "name": "todo-node",
   "version": "1.0.0",
-  "description": "Simple todo app",
+  "description": "Simple but comfy todo app written in node.",
   "main": "todo.js",
   "scripts": {
     "test": "echo \" Lol, tests? \" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "todo",
+    "nodejs",
+    "cli"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lalabuy948/todo-node"
+  },
+  "homepage": "https://github.com/lalabuy948/todo-node",
+  "bugs": "https://github.com/lalabuy948/todo-node/issues",
   "author": "Daniel Popov <lalabuy9948@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.18.0",
     "chalk": "^2.4.1",
