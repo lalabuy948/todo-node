@@ -1,6 +1,6 @@
 # ToDo app written in node.js
 
-## Requirements
+## Run in dev mode
 
 ```sh
 # go to the directory
@@ -22,10 +22,18 @@ todo <command>
   commands can be:
 
   new:          used to create a new todo
-  get:          used to retrieve your todos
+  list:         used to retrieve your todos
   complete <i>: used to mark a todo as complete by index
   delete <i>:   used to delete a todo by index
+  clear:        used to delete all todos
   help:         used to print the usage guide
 ```
+
+## ToDo
+
+- [x] Prepare app for publishing on npm
+- [ ] Register app on npm
+- [ ] Add export function
+- [ ] Add telegram integration (or some other)
 
 ![screenshot](todo-node.png)
