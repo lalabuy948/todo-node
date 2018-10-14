@@ -1,5 +1,7 @@
-const chalk = require('chalk')
+const fs = require('fs');
+const chalk = require('chalk');
 const rl = require('readline');
+
 const args = process.argv
 
 const low = require('lowdb')
@@ -12,42 +14,47 @@ db.defaults({
   todos: []
 }).write()
 
-const commands = ['new', 'get', 'complete', 'delete', 'help']
+const commands = ['new', 'list', 'complete', 'delete', 'clear', 'help']
 
 const usage = function () {
   const usageText = `
-  todo helps you manage you todo tasks.
+  todo helps you to manage your todo tasks.
 
   usage:
     todo <command>
 
     commands can be:
 
-    new:      used to create a new todo
-    get:      used to retrieve your todos
-    complete: used to mark a todo as complete
-    delete:   used to delete a todo
-    help:     used to print the usage guide
+    new:          used to create a new todo
+    list:         used to retrieve your todos
+    complete <i>: used to mark a todo as complete by index
+    delete <i>:   used to delete a todo by index
+    clear:        used to delete all todos
+    help:         used to print the usage guide
   `
 
   console.log(usageText)
 }
 
+// Make error log red color
 function errorLog(error) {
   const eLog = chalk.red(error)
   console.log(eLog)
 }
 
+// Exeptions for commands which require extra arg
 const exeptConds = ['complete', 'delete']
 
+// Checking amount of args
 if (args.length > 3 && !exeptConds.includes(args[2])) {
-  errorLog('only one argument can be accepted')
+  errorLog('Only one argument can be accepted')
   usage()
   return
 }
 
+// Checking valid command or not
 if (commands.indexOf(args[2]) == -1) {
-  errorLog('invalid command passed')
+  errorLog('Invalid command passed')
   usage()
 }
 
@@ -58,7 +65,7 @@ switch (args[2]) {
   case 'new':
     newTodo()
     break
-  case 'get':
+  case 'list':
     getTodos()
     break
   case 'complete':
@@ -67,8 +74,11 @@ switch (args[2]) {
   case 'delete':
     deleteTodo()
     break
+  case 'clear':
+    clearTodos()
+    break
   default:
-    errorLog('invalid command passed')
+    errorLog('Invalid command passed')
     usage()
 }
 
@@ -101,11 +111,15 @@ function newTodo() {
 
 function getTodos() {
   const todos = db.get('todos').value()
+  if (todos.length == 0) {
+    let t = chalk.magenta('ToDo list is clear')
+    console.log(t)
+  }
   let index = 1;
   todos.forEach(todo => {
     let todoText = `${index++}. ${todo.title}`
     if (todo.complete) {
-      todoText += ' ✔ ️'
+      todoText += chalk.green(' ✔ ️')
     }
     console.log(chalk.strikethrough(todoText))
   })
@@ -115,21 +129,21 @@ function getTodos() {
 function completeTodo() {
   // check the length
   if (args.length != 4) {
-    errorLog("invalid number of arguments passed for complete command")
+    errorLog("Invalid number of arguments passed for complete command")
     return
   }
 
   let n = Number(args[3])
   // check if the value is a number
   if (isNaN(n)) {
-    errorLog("please provide a valid number for complete command")
+    errorLog("Please provide a valid number for complete command")
     return
   }
 
   // check if correct length of values has been passed
   let todosLength = db.get('todos').value().length
   if (n > todosLength) {
-    errorLog("invalid number passed for complete command.")
+    errorLog("Invalid number passed for complete command.")
     return
   }
 
@@ -139,20 +153,20 @@ function completeTodo() {
 
 function deleteTodo() {
   if (args.length != 4) {
-    errorLog("invalid number of arguments passed for complete command")
+    errorLog("Invalid number of arguments passed for complete command")
     return
   }
 
   let n = Number(args[3])
   // check if the value is a number
   if (isNaN(n)) {
-    errorLog("please provide a valid number for complete command")
+    errorLog("Please provide a valid number for complete command")
     return
   }
 
   let todosLength = db.get('todos').value().length
   if (n > todosLength || n < 0) {
-    errorLog("invalid number passed for complete command.")
+    errorLog("Invalid number passed for complete command.")
     return
   }
 
@@ -160,7 +174,14 @@ function deleteTodo() {
   // its a bit stupid coz at the begining i didnt add indexes
   // and idk how to get indexes in lowdb
   let todo = db.get(`todos[${n-1}].title`).value()
-  // delete the todo item
   db.get('todos').remove({ title: `${todo}` }).write()
   console.log(chalk.red(`Task #${n} was deleted`))
+}
+
+function clearTodos() {
+  fs.unlink('db.json', (err) => {
+    if (err) throw err;
+    let t = chalk.magenta('ToDo list was cleared')
+    console.log(t);
+  });
 }

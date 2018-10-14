@@ -1,13 +1,13 @@
 {
-  "name": "node-apps",
+  "name": "todo-node",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple todo app",
   "main": "todo.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \" Lol, tests? \" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Daniel Popov <lalabuy9948@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
