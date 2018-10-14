@@ -1,5 +1,13 @@
 # ToDo app written in node.js
 
+> Uploaded as alfredik
+
+## Install
+
+```zsh
+npm install alfredik -g
+```
+
 ## Run in dev mode
 
 ```sh
@@ -11,6 +19,14 @@ npm i
 ```
 
 ## Usage
+
+via npm
+
+```zsh
+alfredik new
+```
+
+dev mod
 
 ```zsh
 node todo.js new
