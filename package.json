@@ -1,8 +1,10 @@
 {
-  "name": "todo-node",
+  "name": "alfredik",
   "version": "1.0.0",
   "description": "Simple but comfy todo app written in node.",
   "main": "todo.js",
+  "preferGlobal": true,
+  "bin": { "alfredik": "todo.js" },
   "scripts": {
     "test": "echo \" Lol, tests? \" && exit 1"
   },

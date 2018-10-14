@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 const fs = require('fs');
 const chalk = require('chalk');
 const rl = require('readline');
@@ -44,19 +46,6 @@ function errorLog(error) {
 
 // Exeptions for commands which require extra arg
 const exeptConds = ['complete', 'delete']
-
-// Checking amount of args
-if (args.length > 3 && !exeptConds.includes(args[2])) {
-  errorLog('Only one argument can be accepted')
-  usage()
-  return
-}
-
-// Checking valid command or not
-if (commands.indexOf(args[2]) == -1) {
-  errorLog('Invalid command passed')
-  usage()
-}
 
 switch (args[2]) {
   case 'help':
@@ -149,6 +138,8 @@ function completeTodo() {
 
   // update the todo item marked as complete
   db.set(`todos[${n-1}].complete`, true).write()
+
+  getTodos()
 }
 
 function deleteTodo() {
@@ -176,6 +167,8 @@ function deleteTodo() {
   let todo = db.get(`todos[${n-1}].title`).value()
   db.get('todos').remove({ title: `${todo}` }).write()
   console.log(chalk.red(`Task #${n} was deleted`))
+
+  getTodos()
 }
 
 function clearTodos() {
