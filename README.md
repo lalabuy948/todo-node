@@ -48,7 +48,7 @@ todo <command>
 ## ToDo
 
 - [x] Prepare app for publishing on npm
-- [ ] Register app on npm
+- [x] Register app on npm
 - [ ] Add export function
 - [ ] Add telegram integration (or some other)
 
