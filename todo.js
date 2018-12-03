@@ -1,8 +1,9 @@
 #! /usr/bin/env node
 
-const fs = require('fs');
-const chalk = require('chalk');
-const rl = require('readline');
+const fs = require('fs')
+const chalk = require('chalk')
+const rl = require('readline')
+const util = require('util')
 
 const args = process.argv
 
@@ -16,7 +17,7 @@ db.defaults({
   todos: []
 }).write()
 
-const commands = ['new', 'list', 'complete', 'delete', 'clear', 'help']
+const commands = ['new', 'list', 'complete', 'delete', 'clear', 'export', 'help']
 
 const usage = function () {
   const usageText = `
@@ -32,6 +33,7 @@ const usage = function () {
     complete <i>: used to mark a todo as complete by index
     delete <i>:   used to delete a todo by index
     clear:        used to delete all todos
+    export:       used to export todos to current directory
     help:         used to print the usage guide
   `
 
@@ -65,6 +67,9 @@ switch (args[2]) {
     break
   case 'clear':
     clearTodos()
+    break
+  case 'export':
+    exportTodos()
     break
   default:
     errorLog('Invalid command passed')
@@ -176,5 +181,19 @@ function clearTodos() {
     if (err) throw err;
     let t = chalk.magenta('ToDo list was cleared')
     console.log(t);
+  });
+}
+
+function exportTodos() {
+  let todos = db.get('todos').value()
+  console.log(todos)
+
+  fs.writeFile(process.cwd() + "/todos.json", JSON.stringify(util.inspect(todos)), 'utf8', 
+  function (err) {
+    if (err) {
+      return console.log(chalk.red('Error ¯\_(ツ)_/¯'));
+    }
+
+    console.log(`The file was exported: ${process.cwd()}/todos.json`);
   });
 }

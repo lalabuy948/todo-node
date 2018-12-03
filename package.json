@@ -1,17 +1,21 @@
 {
   "name": "alfredik",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Simple but comfy todo app written in node.",
   "main": "todo.js",
   "preferGlobal": true,
-  "bin": { "alfredik": "todo.js" },
+  "bin": {
+    "alfredik": "todo.js"
+  },
   "scripts": {
     "test": "echo \" Lol, tests? \" && exit 1"
   },
   "keywords": [
     "todo",
     "nodejs",
-    "cli"
+    "cli",
+    "workflow",
+    "cli app"
   ],
   "repository": {
     "type": "git",

@@ -1,6 +1,10 @@
 # ToDo app written in node.js
 
+[![forthebadge](https://forthebadge.com/images/badges/powered-by-electricity.svg)](https://forthebadge.com)
+
 > Uploaded as alfredik
+
+[![forthebadge](https://forthebadge.com/images/badges/uses-js.svg)](https://forthebadge.com)
 
 ## Install
 
@@ -42,6 +46,7 @@ todo <command>
   complete <i>: used to mark a todo as complete by index
   delete <i>:   used to delete a todo by index
   clear:        used to delete all todos
+  export:       used to export todos to current directory
   help:         used to print the usage guide
 ```
 
@@ -49,9 +54,9 @@ todo <command>
 
 - [x] Prepare app for publishing on npm
 - [x] Register app on npm
-- [ ] Add export function
+- [x] Add export function
 - [ ] Add telegram integration (or some other)
 
 ![screenshot](todo-node.png)
 
-Chpok chelebok production
+Chpok Сhelebok production @ 2018
