@@ -33,7 +33,7 @@ alfredik new
 dev mod
 
 ```zsh
-node todo.js new
+./todo.js new
 ```
 
 ```zsh
