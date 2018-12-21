@@ -1,5 +1,7 @@
 # ToDo app written in node.js
 
+[![downloads](https://img.shields.io/npm/dt/alfredik.svg)](https://img.shields.io/npm/dt/alfredik.svg)
+
 [![forthebadge](https://forthebadge.com/images/badges/powered-by-electricity.svg)](https://forthebadge.com)
 
 > Uploaded as alfredik
