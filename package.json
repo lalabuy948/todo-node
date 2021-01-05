@@ -26,7 +26,7 @@
   "author": "Daniel Popov <lalabuy9948@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "chalk": "^2.4.1",
     "lowdb": "^1.0.0"
   }
